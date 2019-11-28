@@ -15,13 +15,13 @@ echo "Password: $password <br>";
 echo "Birthday: $birthday <br>";
 
 // validate form data
-$i = strpos($email,'@');
+
 $valid=true;
 if (empty($email)) {
     echo("Please type a email in");
     $valid = false;
 }
-else if ($i === false) {
+else if (strpos($email,'@') === false) {
     echo('There is no @ in the email');
     $valid = false;
 }
@@ -45,28 +45,35 @@ if (empty($birthday)) {
     echo("Please Type Birthday");
     $valid = false;
 }
+if ($valid = true) {
 //SQL Query
-$query = 'INSERT INTO accounts
-    (email, password, first, last, birthday)
+    $query = 'INSERT INTO accounts
+    (email, password, fname, lname, birthday)
     VALUES
     (:email, :password, :fname, :lname, :birthday)';
 // Create PDO Statement
-$statement = $db->prepare($query);
+    $statement = $db->prepare($query);
 
 //statement-> bind
-$statement->bindValue(':email',$email);
-$statement->bindValue(':password', $password);
-$statement->bindValue(':fname',$first);
-$statement->bindValue(':lname',$last);
-$statement->bindValue(':birthday',$birthday);
+    $statement->bindValue(':email', $email);
+    $statement->bindValue(':password', $password);
+    $statement->bindValue(':fname', $first);
+    $statement->bindValue(':lname', $last);
+    $statement->bindValue(':birthday', $birthday);
 
 //excute
-$statement->execute();
+    $statement->execute();
 //Close the database
-$statement->closeCursor();
-
+    $statement->closeCursor();
+}
+else{
+    echo('Must redo form');
+}
 ?>
 <html>
 <button type="button"><a href="index2.html">Back</a></button>
-
+<br>
+<button type="button"><a href="index1.html">Login Page</a></button>
+<br>
+<button type="button"><a href="index3.html">Questions</a></button>
 </html>

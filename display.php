@@ -24,9 +24,23 @@ else {
     echo $password;
 }
 
+if (false){
+    $query = 'SELECT email  FROM accounts
+WHERE email= $email_address';
+    $statement = $db->prepare($query);
+}
+
+
+
+
 
 ?>
 
 <html>
+button type="button"><a href="index2.html">Back</a></button>
+<br>
+<button type="button"><a href="index.html">Login Page</a></button>
+<br>
+<button type="button"><a href="index3.html">Questions</a></button>
 <button type="button"><a href="index.html">Back</a></button>
 </html>

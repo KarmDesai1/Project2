@@ -29,12 +29,7 @@ if (empty($Body)) {
 else {
     echo $Body;
     echo "<br>";
-    echo $Skill1;
-    echo "<br>";
-    echo $Skill2;
-    echo "<br>";
-    echo $Skill3;
-    echo "<br>";
+    echo $Skill;
 
 }
 if ($Body != strlen($Body)>=500) {
@@ -72,10 +67,40 @@ if ($valid = true) {
 //Close the database
     $statement->closeCursor();
 }
+else{
+    echo('You must re do form');
+}
+{
+    $query1
+        = 'SELCET * QUESTIONS';
+    $statement = $db ->prepare($query1);
+
+
+}
+
 
 ?>
 <html>
+<h1> Questionnaire </h1>
+<div>
+    Question Name = <?php echo $Name; ?>
+    <span <span class="error"><?php echo $Name; ?></span>
+</div>
+<div>
+    Question Body = <?php echo $Body; ?>
+    <span <span class="error"><?php echo $Body; ?></span>
+</div>
+<div>
+    Question Skills = <?php echo $Skill; ?>
+    <span <span class="error"><?php echo $Skill; ?></span>
+</div>
 <button type="button">
+    <button type="button"><a href="index2.html">Back</a></button>
+    <br>
+    <button type="button"><a href="index.html">Login Page</a></button>
+    <br>
+    <button type="button"><a href="index3.html">Questions</a></button>
+    <br>
     <a href="index3.html">Back</a>Ask another question?
 </button>
 </html>
