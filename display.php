@@ -23,16 +23,44 @@ else if (strlen($password)<=8) {
 else {
     echo $password;
 }
+function validate_login($email_address, $password) {
+    global $db;
+    $query = 'SELECT * FROM accounts WHERE email_address = :email_address 
+AND password = :password';
+    $statement = $db ->prepare($query);
+    $statement->bindValue(':email_address'.$email_address);
+    $statement->bindValue(':password',$password);
 
-if (false){
-    $query = 'SELECT email  FROM accounts
-WHERE email= $email_address';
+
+}
+//Get Login Form from users
+$email_address = $_POST["EmailAddress"];
+$password = $_POST["Password"];
+$query = 'Insert INTO todos
+            (email_address, password)
+            VALUES 
+            (:email_address,$password)';
     $statement = $db->prepare($query);
+
+    $statement->bindValue(':email_address', $email_address);
+    $statement->bindValue(':password', $password);
+
+$statement->execute();
+
+$user = $statement->fetch();
+    $isValidLogin = count($user) > 0;
+    if (!$isValidLogin) {
+        $statement->closeCursor();
+        return false;
+    }
+    else {
+        $userId = $user['id'];
+        $statement->closeCursor();
+        return $userId;
+
 }
 
-
-
-
+$statement->closeCursor();
 
 ?>
 

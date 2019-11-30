@@ -2,9 +2,11 @@
 
 require('pdo.php');
 //get information from form
+$userId =filter_input(INPUT_GET,'userId');
 $Name = filter_input(INPUT_POST,"Name");
 $Body = filter_input(INPUT_POST,"Body");
 $Skill = filter_input(INPUT_POST,"Skill");
+
 
 $valid=true;
 //Check validation of Name
@@ -50,9 +52,9 @@ elseif (strpos($Skill,',') === true)
 if ($valid = true) {
     //SQL Query
     $query = 'INSERT INTO questions
-    (body, skills, title)
+    (body, skills, title,ownerID)
     VALUES
-    (:body, :skills, :title)';
+    (:body, :skills, :title,:ownerID)';
 // Create PDO Statement
     $statement = $db->prepare($query);
 
@@ -60,7 +62,6 @@ if ($valid = true) {
     $statement->bindValue(':body',$Body);
     $statement->bindValue(':skills', $Skill);
     $statement->bindValue(':title',$Name);
-
 
 //excute
     $statement->execute();
@@ -70,13 +71,22 @@ if ($valid = true) {
 else{
     echo('You must re do form');
 }
+
+function get_questions ($userId)
 {
-    $query1
-        = 'SELCET * QUESTIONS';
-    $statement = $db ->prepare($query1);
+    global $db;
+    $query = 'SELECT * FROM questions WHERE userId = :userId';
+    $statement = $db->prepare($query);
+    $statement->bindValue(':userId', $userId);
 
+    $statement->execute();
 
+    $questions = $statement->fetchAll();
+
+    $statement->closeCursor();
+    return $questions;
 }
+
 
 
 ?>

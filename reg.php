@@ -1,6 +1,7 @@
 <?php
 
 require('pdo.php');
+
 // get the data from the form
 $email= filter_input(INPUT_POST,'email');
 $password = filter_input(INPUT_POST,"password");
