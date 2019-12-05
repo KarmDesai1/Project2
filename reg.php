@@ -74,7 +74,7 @@ else{
 <html>
 <button type="button"><a href="index2.html">Back</a></button>
 <br>
-<button type="button"><a href="index1.html">Login Page</a></button>
+<button type="button"><a href="index.html">Login Page</a></button>
 <br>
 <button type="button"><a href="index3.html">Questions</a></button>
 </html>

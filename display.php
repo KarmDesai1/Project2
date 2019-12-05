@@ -14,6 +14,7 @@ else if ($i === false) {
 else {
     echo $email_address;
 }
+
 if (empty($password)) {
     echo("Please type a password in");
 }
@@ -30,7 +31,6 @@ AND password = :password';
     $statement = $db ->prepare($query);
     $statement->bindValue(':email_address'.$email_address);
     $statement->bindValue(':password',$password);
-
 
 }
 //Get Login Form from users
@@ -57,18 +57,19 @@ $user = $statement->fetch();
         $userId = $user['id'];
         $statement->closeCursor();
         return $userId;
-
 }
-
-$statement->closeCursor();
+{
+    $statement->closeCursor();
+}
 
 ?>
 
 <html>
-button type="button"><a href="index2.html">Back</a></button>
+<button type="button"><a href="index2.html">Back</a></button>
 <br>
 <button type="button"><a href="index.html">Login Page</a></button>
 <br>
 <button type="button"><a href="index3.html">Questions</a></button>
+<br>
 <button type="button"><a href="index.html">Back</a></button>
 </html>

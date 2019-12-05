@@ -7,7 +7,6 @@ $Name = filter_input(INPUT_POST,"Name");
 $Body = filter_input(INPUT_POST,"Body");
 $Skill = filter_input(INPUT_POST,"Skill");
 
-
 $valid=true;
 //Check validation of Name
 if (empty($Name)) {
@@ -17,7 +16,6 @@ if (empty($Name)) {
 else {
     echo $Name;
     echo "<br>";
-
 }
 if ($Name != strlen($Name)<=3) {
     $message = "The Password needs to greater than 8 characters";
@@ -32,7 +30,6 @@ else {
     echo $Body;
     echo "<br>";
     echo $Skill;
-
 }
 if ($Body != strlen($Body)>=500) {
     $message = "The Password needs to be less than 500 characters";
@@ -57,12 +54,10 @@ if ($valid = true) {
     (:body, :skills, :title,:ownerID)';
 // Create PDO Statement
     $statement = $db->prepare($query);
-
 //statement-> bind
     $statement->bindValue(':body',$Body);
     $statement->bindValue(':skills', $Skill);
     $statement->bindValue(':title',$Name);
-
 //excute
     $statement->execute();
 //Close the database
@@ -78,7 +73,7 @@ function get_questions ($userId)
     $query = 'SELECT * FROM questions WHERE userId = :userId';
     $statement = $db->prepare($query);
     $statement->bindValue(':userId', $userId);
-
+//The execute function
     $statement->execute();
 
     $questions = $statement->fetchAll();
@@ -86,9 +81,6 @@ function get_questions ($userId)
     $statement->closeCursor();
     return $questions;
 }
-
-
-
 ?>
 <html>
 <h1> Questionnaire </h1>
@@ -111,6 +103,5 @@ function get_questions ($userId)
     <br>
     <button type="button"><a href="index3.html">Questions</a></button>
     <br>
-    <a href="index3.html">Back</a>Ask another question?
-</button>
+    <button type="button"><a href="index3.html">Ask another question?</a></button>
 </html>
