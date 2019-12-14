@@ -14,9 +14,9 @@ function get_username($userid)
 }
 function get_questions($userid){
     global $db;
-    $query = 'SELECT * FROM questions where ownerid=:id';
+    $query = 'SELECT * FROM questions where id=:userid';
     $statement = $db->prepare($query);
-    $statement->bindValue(':id', $userid);
+    $statement->bindValue(':userid', $userid);
     $statement->execute();
     $question=$statement->fetchAll();
     $statement->closeCursor();

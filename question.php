@@ -2,7 +2,7 @@
 
 require('pdo.php');
 //get information from form
-$userId =filter_input(INPUT_GET,'userId');
+$ownerid =filter_input(INPUT_GET,'ownerid');
 $Name = filter_input(INPUT_POST,"Name");
 $Body = filter_input(INPUT_POST,"Body");
 $Skill = filter_input(INPUT_POST,"Skill");
@@ -49,15 +49,17 @@ elseif (strpos($Skill,',') === true)
 if ($valid = true) {
     //SQL Query
     $query = 'INSERT INTO questions
-    (body, skills, title,ownerID)
+    (body, skills, title,ownerid, createdate)
     VALUES
-    (:body, :skills, :title,:ownerID)';
+    (:body, :skills, :title,:ownerid, NOW())';
 // Create PDO Statement
     $statement = $db->prepare($query);
 //statement-> bind
     $statement->bindValue(':body',$Body);
     $statement->bindValue(':skills', $Skill);
     $statement->bindValue(':title',$Name);
+    $statement->bindValue('ownerid',$ownerid);
+
 //excute
     $statement->execute();
 //Close the database
@@ -75,11 +77,14 @@ function get_questions ($userId)
     $statement->bindValue(':userId', $userId);
 //The execute function
     $statement->execute();
-
+//Get all question from SQL
     $questions = $statement->fetchAll();
 
     $statement->closeCursor();
     return $questions;
+    //redirect page to question page
+    header ("Location: dis_question.php");
+    exit;
 }
 ?>
 <html>

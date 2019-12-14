@@ -3,24 +3,16 @@ require("pdo.php");
 require("get.php");
 
 session_start();
-$userid=1;
 $SESSION['userid']=$userid;
 ?>
 <html>
-
-<link rel="stylesheet" type="text/css" href="style.css">
-
 <h1>Collected Data</h1>
 
 <body>
-
 <div> Questions <?php echo get_username($userid);
 $questRecord = get_questions($userid);?>
-
 <br>
-<button type="Submit"><a href="index3.html"> Ask Away </a></button>
-
-<p></p>
+<button type="Submit"><a href="index3.html"> Ask another Question? </a></button>
 
     <table class="table table-bordered">
 
@@ -35,6 +27,7 @@ $questRecord = get_questions($userid);?>
         <td><?php echo $question['body'];?></td>
         <td><?php echo $question['skills'];?></td>
     </tr>
+
     <?php endforeach;?>
 </table>
 <br>
