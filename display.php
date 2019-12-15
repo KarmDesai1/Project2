@@ -1,5 +1,4 @@
 <?php
-include('');
 require('pdo.php');
 // get the data from the form
 $email_address = filter_input(INPUT_POST,'email_address');
@@ -25,44 +24,32 @@ else if (strlen($password)<=8) {
 else {
     echo $password;
 }
-function validate_login($email_address, $password) {
-    global $db;
-    $query = 'SELECT * FROM accounts WHERE email_address = :email_address 
-AND password = :password';
-    $statement = $db ->prepare($query);
-    $statement->bindValue(':email_address'.$email_address);
-    $statement->bindValue(':password',$password);
 
-}
-//Get Login Form from users
-$email_address = $_POST["EmailAddress"];
-$password = $_POST["Password"];
-$query = 'Insert INTO todos
-            (email_address, password)
-            VALUES 
-            (:email_address,$password)';
-    $statement = $db->prepare($query);
+$query ='SELECT * FROM accounts WHERE email= :email AND password = :password';
+$statement = $db->prepare($query);
 
-    $statement->bindValue(':email_address', $email_address);
-    $statement->bindValue(':password', $password);
+//Bind form values
+$statement->bindValue(':email',$email_address);
+$statement->bindValue(':password',$password);
 
 $statement->execute();
+$accounts=$statement->fetchAll();
 
-$user = $statement->fetch();
-    $isValidLogin = count($user) > 0;
-    if (!$isValidLogin) {
-        $statement->closeCursor();
-        return false;
-    }
-    else {
-        $userId = $user['id'];
-        $statement->closeCursor();
-        return $userId;
-}
-{
-    $statement->closeCursor();
-}
+$id =$accounts['id'];
+$firstName = $accounts['fname'];
+$lastName = $accounts['lname'];
+$email_address = $accounts['email'];
 
+if (empty($accounts)) {
+    header("location: index2.html");
+}
+//else{
+//    header("location: dis_questions.php?email_address=$email_address&password=$password");
+//}
+else{
+    echo "The combination of UserName and password does not exist";
+}
+$statement->closeCursor();
 ?>
 
 <html>

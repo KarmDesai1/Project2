@@ -3,7 +3,7 @@
 require('pdo.php');
 
 // get the data from the form
-$email= filter_input(INPUT_POST,'email');
+$email_address= filter_input(INPUT_POST,'email');
 $password = filter_input(INPUT_POST,"password");
 $first = filter_input(INPUT_POST,"first");
 $last = filter_input(INPUT_POST,"last");
@@ -56,7 +56,7 @@ if ($valid = true) {
     $statement = $db->prepare($query);
 
 //statement-> bind
-    $statement->bindValue(':email', $email);
+    $statement->bindValue(':email', $email_address);
     $statement->bindValue(':password', $password);
     $statement->bindValue(':fname', $first);
     $statement->bindValue(':lname', $last);
