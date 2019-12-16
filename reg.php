@@ -11,7 +11,7 @@ $birthday = filter_input(INPUT_POST,"birthday");
 
 echo "First Name: $first <br>";
 echo "Last Name: $last <br>";
-echo "Email Address: $email <br>";
+echo "Email Address: $email_address<br>";
 echo "Password: $password <br>";
 echo "Birthday: $birthday <br>";
 
@@ -30,7 +30,7 @@ if (empty($password)) {
     echo ("Please type a password in");
     $valid = false;
     }
-elseif (strlen($password)<=8) {
+elseif (strlen($password)<=7) {
     echo ("The Password needs to greater than 8 characters");
     $valid = false;
 }

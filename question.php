@@ -5,7 +5,7 @@ require('pdo.php');
 $ownerid =filter_input(INPUT_GET,'ownerid');
 $Name = filter_input(INPUT_POST,"Name");
 $Body = filter_input(INPUT_POST,"Body");
-$Skill = filter_input(INPUT_POST,"Skill");
+$Skills = filter_input(INPUT_POST,"Skills");
 
 $valid=true;
 //Check validation of Name
@@ -29,19 +29,19 @@ if (empty($Body)) {
 else {
     echo $Body;
     echo "<br>";
-    echo $Skill;
+    echo $Skills;
 }
 if ($Body != strlen($Body)>=500) {
     $message = "The Password needs to be less than 500 characters";
     $valid=false;
 }
-if (empty($Skill)) {
+if (empty($Skills)) {
     $message = "Please type a skills in";
     $valid=false;
 }
-elseif (strpos($Skill,',') === true)
+elseif (strpos($Skills,',') === true)
 {
-    $Array = explode(',', $Skill);
+    $Array = explode(',', $Skills);
     echo '<pre>'; print_r($Array); echo '</pre>';
     echo array_keys($Array);
     print_r($Array);
@@ -56,9 +56,9 @@ if ($valid = true) {
     $statement = $db->prepare($query);
 //statement-> bind
     $statement->bindValue(':body',$Body);
-    $statement->bindValue(':skills', $Skill);
+    $statement->bindValue(':skills', $Skills);
     $statement->bindValue(':title',$Name);
-    $statement->bindValue('ownerid',$ownerid);
+    $statement->bindValue(':ownerid',$ownerid);
 
 //excute
     $statement->execute();
@@ -98,8 +98,8 @@ function get_questions ($userId)
     <span <span class="error"><?php echo $Body; ?></span>
 </div>
 <div>
-    Question Skills = <?php echo $Skill; ?>
-    <span <span class="error"><?php echo $Skill; ?></span>
+    Question Skills = <?php echo $Skills; ?>
+    <span <span class="error"><?php echo $Skills; ?></span>
 </div>
 <button type="button">
     <button type="button"><a href="index2.html">Back</a></button>
